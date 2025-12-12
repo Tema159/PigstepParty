@@ -1,0 +1,4 @@
+name: PigstepParty
+version: '${project.version}'
+main: me.tema159.pigstepparty.Main
+api-version: '1.20'

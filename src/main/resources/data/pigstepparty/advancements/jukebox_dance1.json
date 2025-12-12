@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "jukebox_dance": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "item": "minecraft:piglin_head"
+    },
+    "title": {
+      "text": "jukebox_dance.title"
+    },
+    "description": {
+      "text": "jukebox_dance.description"
+    },
+    "frame": "task",
+    "announce_to_chat": true,
+    "show_toast": true,
+    "hidden": false
+  },
+  "parent": "minecraft:story/enter_the_nether",
+  "requirements": [
+    [
+      "jukebox_dance"
+    ]
+  ]
+}

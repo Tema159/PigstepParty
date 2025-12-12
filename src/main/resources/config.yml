@@ -1,0 +1,16 @@
+# The maximum radius around the jukebox
+# that piglins can dance in (in blocks).
+distance: 10
+
+# A cooldown that is applied after a piglin is hit
+# to prevent it from being stunned by music (in seconds).
+dance-cooldown: 5
+
+advancement:
+  enabled: true
+  title: "Nether Disco!"
+  description: "Make the Piglins dance by playing a music disc"
+
+# A list of discs that will make piglins dance.
+discs:
+  - ALL
