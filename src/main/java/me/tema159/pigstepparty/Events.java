@@ -1,18 +1,13 @@
 package me.tema159.pigstepparty;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.Hopper;
 import org.bukkit.block.Jukebox;
-import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Piglin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -37,25 +32,6 @@ public class Events implements Listener {
     }
 
     @EventHandler
-    void onDispense(BlockDispenseEvent e) {
-        Block block = e.getBlock();
-        String song = Main.getSong(e.getItem());
-
-        if (block.getType() != Material.DISPENSER  || song == null)
-            return;
-
-        Directional directional = (Directional) block.getBlockData();
-        Block target = block.getRelative(directional.getFacing());
-        Jukebox box = (Jukebox) target.getState();
-
-        if (target.getType() == Material.JUKEBOX && !box.isPlaying())
-            Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getPlugin(), () -> {
-                if (box.isPlaced() && box.isPlaying())
-                    Main.start(target.getLocation(), song);
-            }, 1);
-    }
-
-    @EventHandler
     void onBlockBreak(BlockBreakEvent e) {
         if (e.getBlock().getType() == Material.JUKEBOX)
             Main.stop(e.getBlock().getLocation());
@@ -69,15 +45,12 @@ public class Events implements Listener {
 
     @EventHandler
     void onTarget(EntityTargetLivingEntityEvent e) {
-        if (e.getEntity() instanceof Piglin p && Main.containsPiglin(p))
+        if (e.getEntity() instanceof Piglin p && e.getTarget() != null && Main.containsPiglin(p))
             e.setCancelled(true);
     }
 
     @EventHandler
     void onItemMove(InventoryMoveItemEvent e) {
-        if (!(e.getInitiator().getHolder() instanceof Hopper))
-            return;
-
         String song = Main.getSong(e.getItem());
         if (song == null)
             return;

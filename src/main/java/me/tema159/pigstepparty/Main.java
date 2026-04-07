@@ -45,8 +45,7 @@ public final class Main extends JavaPlugin {
 
                 if (jukeboxMonitor.get(loc).isEmpty())
                     jukeboxMonitor.remove(loc);
-
-                entry.getValue().removeIf(p -> {
+                else entry.getValue().removeIf(p -> {
                     boolean remove = p.getLocation().distance(loc) > (int) Config.getValue("distance") && notMultipleLinked(p);
                     if (remove) p.setDancing(false);
                     return remove;
